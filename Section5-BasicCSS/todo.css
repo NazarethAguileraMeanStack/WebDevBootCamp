@@ -1,5 +1,11 @@
 body {
     background-color: orange;
+    color: red;
+}
+
+
+ul {
+    color: blue;
 }
 
 li {
@@ -8,8 +14,10 @@ li {
 
 #special {
     background-color: pink;
+    color: green;
 }
 
 .completed {
     text-decoration: line-through;
+    color: yellow;
 }
