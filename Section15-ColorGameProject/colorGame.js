@@ -25,6 +25,7 @@ easyBTN.addEventListener('click', function(){
     colors = generateRandomColors(numberOfSquares);
     pickedColor = pickColor();
     resetButton.textContent = "New Colors";
+    messageDisplay.innerText = "";
     colorDisplay.textContent = pickedColor;
     for (let i = 0; i < squares.length; i++){
         if (colors[i]){
@@ -44,6 +45,7 @@ hardBTN.addEventListener('click', function(){
     colors = generateRandomColors(numberOfSquares);
     pickedColor = pickColor();
     resetButton.textContent = "New Colors";
+    messageDisplay.innerText = "";
     colorDisplay.textContent = pickedColor;
     for (let i = 0; i < squares.length; i++){
         squares[i].style.backgroundColor = colors[i];
