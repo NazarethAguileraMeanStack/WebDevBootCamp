@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Patatap Clone Project</title>
+    <link rel="stylesheet" href="circles.css">
+    <script type="text/javascript" src="paperJS/dist/paper-full.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.12/howler.core.min.js"></script>
+    <script type="text/paperscript" canvas="myCanvas">
+
+        var keyData = {
+            a: { color: "#a53353", sound: new Howl({ src: ['sounds/collection/bubbles.mp3']   }) },
+            b: { color: "#156e03", sound: new Howl({ src: ['sounds/collection/clay.mp3']      }) },
+            c: { color: "#e33ea3", sound: new Howl({ src: ['sounds/collection/confetti.mp3']  }) },
+            d: { color: "#7a1cb5", sound: new Howl({ src: ['sounds/collection/corona.mp3']    }) },
+            e: { color: "#1ee2c6", sound: new Howl({ src: ['sounds/collection/dotted-spiral.mp3'] }) },
+            f: { color: "#3c7d79", sound: new Howl({ src: ['sounds/collection/flash-1.mp3']   }) },
+            g: { color: "#5ed4b0", sound: new Howl({ src: ['sounds/collection/flash-2.mp3']   }) },
+            h: { color: "#f6e568", sound: new Howl({ src: ['sounds/collection/flash-3.mp3']   }) },
+            i: { color: "#fcd6da", sound: new Howl({ src: ['sounds/collection/glimmer.mp3']   }) },
+            j: { color: "#d61dec", sound: new Howl({ src: ['sounds/collection/moon.mp3']      }) },
+            k: { color: "#35fd94", sound: new Howl({ src: ['sounds/collection/pinwheel.mp3']  }) },
+            l: { color: "#62c2c6", sound: new Howl({ src: ['sounds/collection/piston-1.mp3']  }) },
+            m: { color: "#757d75", sound: new Howl({ src: ['sounds/collection/piston-2.mp3']  }) },
+            n: { color: "#ea54e5", sound: new Howl({ src: ['sounds/collection/piston-3.mp3']  }) },
+            o: { color: "#c125f5", sound: new Howl({ src: ['sounds/collection/prism-1.mp3']   }) },
+            p: { color: "#562c22", sound: new Howl({ src: ['sounds/collection/prism-2.mp3']   }) },
+            q: { color: "#a7e8c4", sound: new Howl({ src: ['sounds/collection/prism-3.mp3']   }) },
+            r: { color: "#8726c0", sound: new Howl({ src: ['sounds/collection/splits.mp3']    }) },
+            s: { color: "#f5ec87", sound: new Howl({ src: ['sounds/collection/squiggle.mp3']  }) },
+            t: { color: "#a851e0", sound: new Howl({ src: ['sounds/collection/strike.mp3']    }) },
+            u: { color: "#026869", sound: new Howl({ src: ['sounds/collection/suspension.mp3'] }) },
+            v: { color: "#5298d4", sound: new Howl({ src: ['sounds/collection/timer.mp3']     }) },
+            w: { color: "#6abc8c", sound: new Howl({ src: ['sounds/collection/ufo.mp3']       }) },
+            x: { color: "#50faba", sound: new Howl({ src: ['sounds/collection/veil.mp3']      }) },
+            y: { color: "#e0089c", sound: new Howl({ src: ['sounds/collection/wipe.mp3']      }) },
+            z: { color: "#09b5a3", sound: new Howl({ src: ['sounds/collection/zig-zag.mp3']   }) },
+    
+        }
+
+
+        var circles = [];
+
+        function onKeyDown(event) {
+            if (keyData[event.key]){
+                var maxPoint = new Point(view.size.width, view.size.height);
+                var randomPoint = Point.random();
+                var point = maxPoint * randomPoint;
+                var newCircle = new Path.Circle(point, 500);
+                newCircle.fillColor = keyData[event.key].color;
+                keyData[event.key].sound.play();
+                circles.push(newCircle);
+                
+            }
+        }
+
+
+        function onFrame(event){
+            for (var i = 0; i < circles.length; i++){
+                circles[i].fillColor.hue += 1;
+                circles[i].scale(.9);
+            }
+        }
+
+        function onFrame(event){
+            for(var i = 0; i < circles.length; i++){
+              circles[i].scale(0.9);
+              circles[i].fillColor.hue += 1;
+              if(circles[i].area < 1){
+                circles[i].remove(); // remove the circle from the canvas
+                circles.splice(i, 1); // remove the circle from the array
+                i--; // decrement i so that the loop doesn't skip a circle because of .splice()
+                console.log(circles);
+              }
+            }
+          }
+
+    </script>
+</head>
+<body>
+    
+    <canvas id="myCanvas" resize></canvas>
+
+
+</body>
+</html>
